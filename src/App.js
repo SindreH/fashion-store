@@ -1,7 +1,8 @@
 import React from 'react';
 import {
   Routes,
-  Route
+  Route,
+  Navigate
 } from "react-router-dom";
 import { connect } from 'react-redux'
 import './App.css';
@@ -39,16 +40,27 @@ class App extends React.Component {
     this.unsubscribedFromAuth()    
   }
 
-  render() {
+ 
+  
+render() {
+
+    
+
     return (
       <div>
         <Header />
         <Routes>
           
-              <Route exact path="/" element={<HomePage />} />
-              <Route path="/shop" element={<ShopPage />} />
-              <Route path="/signin" element={<SignInAndSignUp />}/>
+          <Route exact path="/" element={<HomePage />} />
+          <Route path="/shop" element={<ShopPage />} />
+          {
+            this.currentUser ?
+            <Navigate to="/" /> :
+            <Route path="/signin" element={<SignInAndSignUp />} />
+          }
+
           
+
         </Routes>
       </div>
     )
@@ -56,8 +68,13 @@ class App extends React.Component {
 }
 
 // REDUX
+const mapStateToProps = state => ({
+  currentUser: state.user.currentUser
+})
+
+// REDUX
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
 })
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
