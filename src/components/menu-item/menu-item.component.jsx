@@ -11,7 +11,7 @@ const MenuItem = ({title, imageUrl, size}) => (
         }} 
         />
         <div className="content">
-            <Link to={`/${title}`}><h1 className='title'>{title.toUpperCase()}</h1></Link>
+            <Link to={`shop/${title.toLowerCase()}`}><h1 className='title'>{title.toUpperCase()}</h1></Link>
             <span className="subtitle">SHOP NOW</span>
         </div>
     </div>
